@@ -3,7 +3,7 @@
 [Arduino](https://www.arduino.cc/) support package to program [Maxim](https://www.maximintegrated.com/) boards.
 
 ### Supported Boards
-- [MAX32620FTHR]()
+- [MAX32620FTHR](https://www.maximintegrated.com/en/products/digital/microcontrollers/MAX32620FTHR.html)
 - [MAX32625MBED](https://www.maximintegrated.com/en/products/digital/microcontrollers/MAX32625MBED.html)
 
 ### Setup the Arduino Environment
@@ -11,7 +11,7 @@
 1. [Download](https://www.arduino.cc/en/Main/Software) latest version and install the Arduino IDE for [Windows](https://www.arduino.cc/en/Guide/Windows), [Linux](https://www.arduino.cc/en/Guide/Linux) or [Mac OS](https://www.arduino.cc/en/Guide/MacOSX). 
 2. Open the Arduino IDE.
 3. For Windows, and Linux, go to **_File->Preferences_**. For Mac OS, go to **_Arduino->Preferences_**.
-4. In the Dialog box, locate **_Additional Boards Manager URLs_** field, paste the following URL and click **_OK_**.<br/>`https://raw.githubusercontent.com/maximintegratedmicros/Collateral/master/package_maxim_index.json`
+4. In the Dialog box, locate **_Additional Boards Manager URLs_** field, paste the following URL and click **_OK_**.<br/>`https://raw.githubusercontent.com/maximintegratedmicros/arduino-collateral/master/package_maxim_index.json`
 5. Go to **_Tools->Board->Boards Manager..._**
 6. In the search field, type "maxim".
 7. Select **_Maxim's 32-bit Microcontroller_** and click **_Install_**.
