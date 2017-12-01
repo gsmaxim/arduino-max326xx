@@ -1,0 +1,2 @@
+daplink.name=DAPLink
+daplink.program.tool=daplink
