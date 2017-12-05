@@ -136,6 +136,7 @@ class MXC_HardwareSerial : public HardwareSerial
     int availableForWrite(void);
     void flush(void);
     size_t write(uint8_t n);
+    using Print::write; // pull in write(str) and write(buf, size) from Print
     // Interrupt handlers - Not intended to be called externally
     inline void _handler(void);
 
@@ -144,6 +145,9 @@ class MXC_HardwareSerial : public HardwareSerial
     inline void _tx_handler(void);
 };
 
+extern MXC_HardwareSerial Serial0;
+extern MXC_HardwareSerial Serial1;
+extern MXC_HardwareSerial Serial2;
 extern void serialEventRun(void);
 
 #endif // MXC_HardwareSerial_h
