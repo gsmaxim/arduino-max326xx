@@ -69,7 +69,6 @@
 
 #define LED_BUILTIN 20
 
-// TODO Document user can override the default master
 #define DEFAULT_I2CM_PORT 1
 #define DEFAULT_SPIM_PORT 2
 #define DEFAULT_SERIAL_PORT 1
@@ -83,9 +82,9 @@
 #define PIN_MASK_TO_PIN(msk) (31 - __CLZ(msk))
 
 #define IS_VALID(p)       ( (p) < NUM_OF_PINS )
-#define IS_NC(p)          ( pinLut[(p)].port == PIN_NC ) 
-#define IS_ANALOG(p)      ( IS_VALID(p) && (pinLut[(p)].port == PIN_ANALOG) ) 
-#define IS_DIGITAL(p)     ( IS_VALID(p) && !IS_NC(p) && !IS_ANALOG(p) ) 
+#define IS_NC(p)          ( pinLut[(p)].port == PIN_NC )
+#define IS_ANALOG(p)      ( IS_VALID(p) && (pinLut[(p)].port == PIN_ANALOG) )
+#define IS_DIGITAL(p)     ( IS_VALID(p) && !IS_NC(p) && !IS_ANALOG(p) )
 #define GET_PIN_IRQ(p)    ( (uint32_t)MXC_GPIO_GET_IRQ(pinLut[p].port) )
 #define GET_PIN_MASK(p)   ( pinLut[p].mask )
 #define GET_PIN_PORT(p)   ( pinLut[p].port )
@@ -95,6 +94,10 @@
 // Do not const pinLut, pin func and pad can be changed
 extern gpio_cfg_t pinLut[NUM_OF_PINS];
 extern const gpio_cfg_t VDDIOH_pins[6];
+
+// Switch I/O voltage
+int useVDDIOH(int pin);
+int useVDDIO(int pin);
 
 // Enumeration to allow portability between mbed and arduino
 enum mbedPins {

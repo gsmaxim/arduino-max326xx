@@ -13,7 +13,7 @@
 begin			KEYWORD2
 end				KEYWORD2
 transfer		KEYWORD2
-setBitOrder     KEYWORD2
+setBitOrder		KEYWORD2
 setDataMode		KEYWORD2
 setClockDivider	KEYWORD2
 

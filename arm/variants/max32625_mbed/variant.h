@@ -82,9 +82,9 @@
 #define PIN_MASK_TO_PIN(msk) (31 - __CLZ(msk))
 
 #define IS_VALID(p)       ( (p) < NUM_OF_PINS )
-#define IS_NC(p)          ( pinLut[(p)].port == PIN_NC ) 
-#define IS_ANALOG(p)      ( IS_VALID(p) && (pinLut[(p)].port == PIN_ANALOG) ) 
-#define IS_DIGITAL(p)     ( IS_VALID(p) && !IS_NC(p) && !IS_ANALOG(p) ) 
+#define IS_NC(p)          ( pinLut[(p)].port == PIN_NC )
+#define IS_ANALOG(p)      ( IS_VALID(p) && (pinLut[(p)].port == PIN_ANALOG) )
+#define IS_DIGITAL(p)     ( IS_VALID(p) && !IS_NC(p) && !IS_ANALOG(p) )
 #define GET_PIN_IRQ(p)    ( (uint32_t)MXC_GPIO_GET_IRQ(pinLut[p].port) )
 #define GET_PIN_MASK(p)   ( pinLut[p].mask )
 #define GET_PIN_PORT(p)   ( pinLut[p].port )
@@ -92,6 +92,11 @@
 #define SET_PIN_MODE(p,m) ( pinLut[p].pad = m )
 
 extern gpio_cfg_t pinLut[NUM_OF_PINS];
+extern const gpio_cfg_t VDDIOH_pins[5];
+
+// Switch I/O voltage
+int useVDDIOH(int pin);
+int useVDDIO(int pin);
 
 // Enumeration to allow portability between mbed and arduino
 enum mbedPins {
