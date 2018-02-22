@@ -29,7 +29,7 @@
  * property whatsoever. Maxim Integrated Products, Inc. retains all
  * ownership rights.
  *
- * $Date: 2016-05-02 14:15:59 -0700 (Mon, 02 May 2016) $ 
+ * $Date: 2016-05-02 14:15:59 -0700 (Mon, 02 May 2016) $
  * $Revision: 22594 $
  *
  ******************************************************************************/
@@ -120,6 +120,7 @@ SECTIONS {
     .heap (COPY):
     {
         . = ALIGN(4);
+        end = .;
         *(.heap*)
         __HeapLimit = ABSOLUTE(__StackLimit);
     } > SRAM

@@ -152,7 +152,7 @@ void initVariant()
 int useVDDIOH(int pin)
 {
     // Pins which can be used at 3.3v(VDDIOH)
-    if ((pin >= 0 && pin < 08) ||   // port 0
+    if ((pin >= 0 && pin < 8) ||    // port 0
         (pin > 07 && pin < 14) ||   // port 1
         (pin > 17 && pin < 24) ||   // port 2
         (pin > 23 && pin < 28) ||   // port 3

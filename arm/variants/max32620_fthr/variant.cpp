@@ -35,6 +35,8 @@
 #include "mxc_sys.h"
 #include "variant.h"
 #include "adc.h"
+#include "pwrman_regs.h"
+#include "ioman_regs.h"
 
 /*
 pinLut is a lookup table which provides reference to the actual port,
@@ -141,6 +143,20 @@ const gpio_cfg_t VDDIOH_pins[] = {
 // Initilization code specific to MAX32620FTHR
 void initVariant()
 {
+#ifdef MAX32620FTHR_BOOTLOADER
+    // Reset the peripherals used by bootloader
+    // Reset GPIO
+    MXC_PWRMAN->peripheral_reset |= MXC_F_PWRMAN_PERIPHERAL_RESET_GPIO;
+    MXC_PWRMAN->peripheral_reset &= ~MXC_F_PWRMAN_PERIPHERAL_RESET_GPIO;
+
+    // Clear UART3 I/O mode request
+    MXC_IOMAN->uart3_req = 0x0;
+
+    // Reset UART3
+    MXC_PWRMAN->peripheral_reset |= MXC_F_PWRMAN_PERIPHERAL_RESET_UART3;
+    MXC_PWRMAN->peripheral_reset &= ~MXC_F_PWRMAN_PERIPHERAL_RESET_UART3;
+#endif // MAX32620FTHR_BOOTLOADER
+
     SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[0]);
     SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[1]);
     SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[2]);
@@ -155,7 +171,7 @@ void initVariant()
 int useVDDIOH(int pin)
 {
     // Pins which can be used at 3.3v(VDDIOH)
-    if ((pin >= 0 && pin < 08) ||   // port 0
+    if ((pin >= 0 && pin < 8) ||    // port 0
         (pin > 07 && pin < 16) ||   // port 1
         (pin > 19 && pin < 23) ||   // port 2
         (pin > 23 && pin < 30) ||   // port 3

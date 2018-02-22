@@ -10,7 +10,7 @@ max32620_fthr.build.target=max32620
 max32620_fthr.build.board=MAX32620FTHR
 max32620_fthr.build.core=arduino
 max32620_fthr.build.variant=max32620_fthr
-max32620_fthr.build.extra_flags=-mthumb -D__SYSTEM_HFX=96000000 -DTARGET=MAX32620 -DTARGET_REV=0x4332 -DMAX32620
+max32620_fthr.build.extra_flags=-mthumb -D__SYSTEM_HFX=96000000 -DTARGET=MAX32620 -DTARGET_REV=0x4332 -DMAX32620 -DARDUINO_MAXIM
 
 max32620_fthr.build.ldscript=CMSIS/Device/Maxim/MAX32620/Source/GCC/max32620.ld
 
@@ -36,7 +36,7 @@ max32620_fthr_bl.build.target=max32620
 max32620_fthr_bl.build.board=MAX32620FTHR
 max32620_fthr_bl.build.core=arduino
 max32620_fthr_bl.build.variant=max32620_fthr
-max32620_fthr_bl.build.extra_flags=-mthumb  -DUSBCON -D__SYSTEM_HFX=96000000 -DTARGET=MAX32620 -DTARGET_REV=0x4332 -DMAX32620
+max32620_fthr_bl.build.extra_flags=-mthumb -D__SYSTEM_HFX=96000000 -DTARGET=MAX32620 -DTARGET_REV=0x4332 -DUSBCON -DMAX32620 -DMAX32620FTHR_BOOTLOADER -DARDUINO_MAXIM
 
 max32620_fthr_bl.build.ldscript=CMSIS/Device/Maxim/MAX32620/Source/GCC/max32620_bl.ld
 
@@ -62,7 +62,7 @@ max32625_mbed.build.target=max32625
 max32625_mbed.build.board=MAX32625MBED
 max32625_mbed.build.core=arduino
 max32625_mbed.build.variant=max32625_mbed
-max32625_mbed.build.extra_flags=-mthumb -D__SYSTEM_HFX=96000000 -DTARGET=MAX32625 -DTARGET_REV=0x4132  -DMAX32625
+max32625_mbed.build.extra_flags=-mthumb -D__SYSTEM_HFX=96000000 -DTARGET=MAX32625 -DTARGET_REV=0x4132 -DMAX32625 -DARDUINO_MAXIM
 
 max32625_mbed.build.ldscript=CMSIS/Device/Maxim/MAX32625/Source/GCC/max32625.ld
 
