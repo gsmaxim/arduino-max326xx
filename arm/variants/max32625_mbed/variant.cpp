@@ -32,6 +32,7 @@
  ******************************************************************************/
 
 #include "mxc_device.h"
+#include "mxc_sys.h"
 #include "variant.h"
 #include "adc.h"
 
@@ -157,7 +158,7 @@ int useVDDIOH(int pin)
         (pin > 17 && pin < 24) ||   // port 2
         (pin > 23 && pin < 28) ||   // port 3
         (pin > 29 && pin < 32) ||   // port 3
-        (pin > 31 && pin < 40) ||   // port 4
+        (pin > 31 && pin < 40)) {   // port 4
             SYS_IOMAN_UseVDDIOH(GET_PIN_CFG(pin));
             return 0;
     } else {
