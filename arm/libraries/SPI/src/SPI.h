@@ -37,6 +37,16 @@
 #include <Arduino.h>
 #include <spim.h>
 
+// SPI_HAS_TRANSACTION means SPI has
+//   - beginTransaction()
+//   - endTransaction()
+//   - usingInterrupt()
+//   - SPISetting(clock, bitOrder, dataMode)
+#define SPI_HAS_TRANSACTION 1
+
+// SPI_HAS_NOTUSINGINTERRUPT means that SPI has notUsingInterrupt() method
+#define SPI_HAS_NOTUSINGINTERRUPT 1
+
 // Transfer Modes
 #define SPI_MODE0 0x00
 #define SPI_MODE1 0x01
@@ -57,7 +67,7 @@ typedef enum {
 
 class SPISettings {
 public:
-    SPISettings(uint32_t clock, uint8_t bo, uint8_t mode):
+    SPISettings(uint32_t clock = 1000000, uint8_t bo = MSBFIRST, uint8_t mode = SPI_MODE0):
         transferMode(mode),
         s_bitOrder(bo),
         clk(clock)

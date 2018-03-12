@@ -73,12 +73,6 @@
 #define DEFAULT_SPIM_PORT 2
 #define DEFAULT_SERIAL_PORT 1
 
-// Analog Pins can be accessed by either external pin# or A0 to A3
-#define A0 49
-#define A1 50
-#define A2 51
-#define A3 52
-
 #define PIN_MASK_TO_PIN(msk) (31 - __CLZ(msk))
 
 #define IS_VALID(p)       ( (p) < NUM_OF_PINS )
@@ -158,5 +152,96 @@ enum mbedPins {
 /* PORT 6 */
     P6_0 = 48,
 };
+
+// LEDs
+// ----
+#define PIN_LED     (6u)
+#define LED_BUILTIN PIN_LED
+
+// Analog pins
+// -----------
+#define PIN_A0   49
+#define PIN_A1   50
+#define PIN_A2   51
+#define PIN_A3   52
+
+static const uint8_t A0   = PIN_A0;
+static const uint8_t A1   = PIN_A1;
+static const uint8_t A2   = PIN_A2;
+static const uint8_t A3   = PIN_A3;
+#define ADC_RESOLUTION 10
+
+// SPI Interfaces
+// --------------
+#define SPI_INTERFACES_COUNT 3
+
+// SPI
+#define PIN_SPI_MISO  42
+#define PIN_SPI_MOSI  41
+#define PIN_SPI_SCK   40
+#define PIN_SPI_SS    43
+static const uint8_t SS   = PIN_SPI_SS;   // SPI Slave SS not used. Set here only for reference.
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK  = PIN_SPI_SCK;
+
+// SPI0: Connected to PMOD 0
+#define PIN_SPI0_MISO 6
+#define PIN_SPI0_MOSI 5
+#define PIN_SPI0_SCK  4
+#define PIN_SPI0_SS   7
+static const uint8_t SS0   = PIN_SPI0_SS;
+static const uint8_t MOSI0 = PIN_SPI0_MOSI;
+static const uint8_t MISO0 = PIN_SPI0_MISO;
+static const uint8_t SCK0  = PIN_SPI0_SCK;
+
+// SPI1: Connected to PMOD1
+#define PIN_SPI1_MISO 10
+#define PIN_SPI1_MOSI 9
+#define PIN_SPI1_SCK  8
+#define PIN_SPI1_SS   11
+static const uint8_t SS1   = PIN_SPI1_SS;
+static const uint8_t MOSI1 = PIN_SPI1_MOSI;
+static const uint8_t MISO1 = PIN_SPI1_MISO;
+static const uint8_t SCK1  = PIN_SPI1_SCK;
+
+// SPI2: Feather Pins
+#define PIN_SPI2_MISO  42
+#define PIN_SPI2_MOSI  41
+#define PIN_SPI2_SCK   40
+#define PIN_SPI2_SS    43
+static const uint8_t SS2   = PIN_SPI2_SS;   // SPI Slave SS not used. Set here only for reference.
+static const uint8_t MOSI2 = PIN_SPI2_MOSI;
+static const uint8_t MISO2 = PIN_SPI2_MISO;
+static const uint8_t SCK2  = PIN_SPI2_SCK;
+
+// Wire Interfaces
+// ---------------
+#define WIRE_INTERFACES_COUNT 3
+
+// Wire
+#define PIN_WIRE_SDA        28
+#define PIN_WIRE_SCL        29
+static const uint8_t SDA = PIN_WIRE_SDA;
+static const uint8_t SCL = PIN_WIRE_SCL;
+
+// Wire0
+#define PIN_WIRE0_SDA        14
+#define PIN_WIRE0_SCL        15
+static const uint8_t SDA0 = PIN_WIRE0_SDA;
+static const uint8_t SCL0 = PIN_WIRE0_SCL;
+
+// Wire1
+#define PIN_WIRE1_SDA        28
+#define PIN_WIRE1_SCL        29
+static const uint8_t SDA1 = PIN_WIRE1_SDA;
+static const uint8_t SCL1 = PIN_WIRE1_SCL;
+
+// Wire2
+#define PIN_WIRE2_SDA        47
+#define PIN_WIRE2_SCL        48
+static const uint8_t SDA2 = PIN_WIRE2_SDA;
+static const uint8_t SCL2 = PIN_WIRE2_SCL;
+
 
 #endif // _VARIANT_MAX32620FTHR_H_
