@@ -67,6 +67,14 @@ void TwoWire::begin()
     i2cm_sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_I2CM(idx, 1, 1);
 #endif
 
+#ifdef MAX32630
+    switch (idx) {
+        case 0: i2cm_sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_I2CM0(IOMAN_MAP_A, 1); break;
+        case 1: i2cm_sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_I2CM1(IOMAN_MAP_A, 1); break;
+        case 2: i2cm_sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_I2CM2(IOMAN_MAP_A, 1); break;
+    }
+#endif
+
     i2cm_sys_cfg.clk_scale = CLKMAN_SCALE_DIV_1;
     I2CM_Init(i2cm, &i2cm_sys_cfg, I2CM_SPEED_400KHZ);
 }
@@ -213,7 +221,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop
     if(sendStop && !error){
         error = I2CM_TxInProgress(i2cm);
     }
-    
+
     // Unlock this I2CM
     mxc_free_lock((uint32_t*)&i2cm_states[i2cm_num].req);
 
@@ -266,7 +274,7 @@ uint8_t TwoWire::endTransmission(uint8_t stop)
     if (I2CM_Tx(i2cm, fifo, targetAddr, txBuffer, txBufferLength, 0) == E_NO_ERROR) {
         return 0;
     }
-    
+
     return 4;   // Return "Other Error" in case of error
 }
 

@@ -3,8 +3,9 @@
 [Arduino](https://www.arduino.cc/) support package to program [Maxim](https://www.maximintegrated.com/) boards.
 
 ### Supported Boards
-- [MAX32620FTHR](https://www.maximintegrated.com/en/products/digital/microcontrollers/MAX32620FTHR.html)
-- [MAX32625MBED](https://www.maximintegrated.com/en/products/digital/microcontrollers/MAX32625MBED.html)
+- [MAX32620FTHR](https://www.maximintegrated.com/en/products/microcontrollers/MAX32620FTHR.html)
+- [MAX32625MBED](https://www.maximintegrated.com/en/products/microcontrollers/MAX32625MBED.html)
+- [MAX32630FTHR](https://www.maximintegrated.com/en/products/microcontrollers/MAX32630FTHR.html)
 
 ### Setup the Arduino Environment
 ###### NOTE: If you already have latest version of Arduino installed on your computer, skip step 1 and 2.

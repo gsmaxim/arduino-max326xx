@@ -75,3 +75,29 @@ max32625_mbed.compiler.CMSIS.include.path="-I{build.system.path}/CMSIS/Include" 
 max32625_mbed.compiler.PeriphDriver.build.path="-I{build.system.path}/MAX32625PeriphDriver/Build"
 max32625_mbed.compiler.MAX_USB.include.path=
 max32625_mbed.compiler.MAX_USB.build.path=
+
+######################################################################################
+
+max32630_fthr.name=MAX32630FTHR
+
+max32630_fthr.upload.tool=daplink
+
+max32630_fthr.build.mcu=cortex-m4
+max32630_fthr.build.f_cpu=96000000L
+max32630_fthr.build.target=max32630
+max32630_fthr.build.board=MAX32630FTHR
+max32630_fthr.build.core=arduino
+max32630_fthr.build.variant=max3263x_fthr
+max32630_fthr.build.extra_flags=-mthumb -D__SYSTEM_HFX=96000000 -DTARGET=MAX32630 -DTARGET_REV=0x4132 -DMAX32630 -DARDUINO_MAXIM
+
+max32630_fthr.build.ldscript=CMSIS/Device/Maxim/MAX3263X/Source/GCC/max3263x.ld
+
+max32630_fthr.build.systemStartupLib={build.system.path}/startup/Build_max3263x/system_startup_max3263x.a
+max32630_fthr.build.periphLib={build.system.path}/MAX3263XPeriphDriver/Build/PeriphDriver.a
+max32630_fthr.build.usbLib=
+
+max32630_fthr.compiler.PeriphDriver.include.path="-I{build.system.path}/MAX3263XPeriphDriver/Include"
+max32630_fthr.compiler.CMSIS.include.path="-I{build.system.path}/CMSIS/Include" "-I{build.system.path}/CMSIS/Device/Maxim/MAX3263X/Include"
+max32630_fthr.compiler.PeriphDriver.build.path="-I{build.system.path}/MAX3263XPeriphDriver/Build"
+max32630_fthr.compiler.MAX_USB.include.path=
+max32630_fthr.compiler.MAX_USB.build.path=

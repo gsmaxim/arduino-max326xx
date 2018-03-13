@@ -67,17 +67,9 @@
 #define PIN_ANALOG  -2
 #define NUM_OF_PINS 53
 
-#define LED_BUILTIN 24
-
 #define DEFAULT_I2CM_PORT 0
 #define DEFAULT_SPIM_PORT 1
 #define DEFAULT_SERIAL_PORT 0
-
-// Analog Pins can be accessed by either external pin# or A0 to A3
-#define A0 49
-#define A1 50
-#define A2 51
-#define A3 52
 
 #define PIN_MASK_TO_PIN(msk) (31 - __CLZ(msk))
 
@@ -91,6 +83,7 @@
 #define GET_PIN_CFG(p)    ( (gpio_cfg_t *)&pinLut[p] )
 #define SET_PIN_MODE(p,m) ( pinLut[p].pad = m )
 
+// Do not const pinLut, pin func and pad can be changed
 extern gpio_cfg_t pinLut[NUM_OF_PINS];
 extern const gpio_cfg_t VDDIOH_pins[5];
 
@@ -157,5 +150,87 @@ enum mbedPins {
 /* PORT 6 */
     P6_0 = 48,
 };
+
+// LEDs
+// ----
+#define PIN_LED     (24u)
+#define LED_BUILTIN PIN_LED
+
+// Analog pins
+// -----------
+#define PIN_A0  49
+#define PIN_A1  50
+#define PIN_A2  51
+#define PIN_A3  52
+static const uint8_t A0 = PIN_A0;
+static const uint8_t A1 = PIN_A1;
+static const uint8_t A2 = PIN_A2;
+static const uint8_t A3 = PIN_A3;
+#define ADC_RESOLUTION 10
+
+// SPI Interfaces
+// --------------
+#define SPI_INTERFACES_COUNT 3
+
+// SPI
+#define PIN_SPI_MISO    10
+#define PIN_SPI_MOSI    9
+#define PIN_SPI_SCK     8
+#define PIN_SPI_SS      11
+static const uint8_t SS   = PIN_SPI_SS;   // SPI Slave SS not used. Set here only for reference.
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK  = PIN_SPI_SCK;
+
+// SPI0
+#define PIN_SPI0_MISO   6
+#define PIN_SPI0_MOSI   5
+#define PIN_SPI0_SCK    4
+#define PIN_SPI0_SS     7
+static const uint8_t SS0   = PIN_SPI0_SS;
+static const uint8_t MOSI0 = PIN_SPI0_MOSI;
+static const uint8_t MISO0 = PIN_SPI0_MISO;
+static const uint8_t SCK0  = PIN_SPI0_SCK;
+
+// SPI1
+#define PIN_SPI1_MISO   10
+#define PIN_SPI1_MOSI   9
+#define PIN_SPI1_SCK    8
+#define PIN_SPI1_SS     11
+static const uint8_t SS1   = PIN_SPI1_SS;
+static const uint8_t MOSI1 = PIN_SPI1_MOSI;
+static const uint8_t MISO1 = PIN_SPI1_MISO;
+static const uint8_t SCK1  = PIN_SPI1_SCK;
+
+// SPI2
+#define PIN_SPI2_MISO   22
+#define PIN_SPI2_MOSI   21
+#define PIN_SPI2_SCK    20
+#define PIN_SPI2_SS     23
+static const uint8_t SS2   = PIN_SPI2_SS;
+static const uint8_t MISO2 = PIN_SPI2_MISO;
+static const uint8_t SCK2  = PIN_SPI2_SCK;
+
+// Wire Interfaces
+// ---------------
+#define WIRE_INTERFACES_COUNT 2
+
+// Wire
+#define PIN_WIRE_SDA    28
+#define PIN_WIRE_SCL    29
+static const uint8_t SDA = PIN_WIRE_SDA;
+static const uint8_t SCL = PIN_WIRE_SCL;
+
+// Wire0
+#define PIN_WIRE0_SDA   14
+#define PIN_WIRE0_SCL   15
+static const uint8_t SDA0 = PIN_WIRE0_SDA;
+static const uint8_t SCL0 = PIN_WIRE0_SCL;
+
+// Wire1
+#define PIN_WIRE1_SDA   28
+#define PIN_WIRE1_SCL   29
+static const uint8_t SDA1 = PIN_WIRE1_SDA;
+static const uint8_t SCL1 = PIN_WIRE1_SCL;
 
 #endif // _VARIANT_MAX32625MBED_H_

@@ -219,7 +219,7 @@ void MXC_HardwareSerial::_tx_handler(void)
 
   while (avail && (_tx_buffer_tail != _tx_buffer_head)) {
 #if (MXC_UART_REV == 0)
-    uart->intfl = MXC_F_UART_INTFL_TX_DONE;
+    _uart->intfl = MXC_F_UART_INTFL_TX_DONE;
 #endif
     _fifo->tx = _tx_buffer[_tx_buffer_tail];
 

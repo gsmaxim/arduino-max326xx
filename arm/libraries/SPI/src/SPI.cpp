@@ -93,7 +93,8 @@ void SPIClass::begin()
         switch(idx) {
             case 0: sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_SPIM0(1, 0, 0, 0, 0, 0, 0, 1); break;
             case 1: sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_SPIM1(1, 0, 0, 0, 0, 1); break;
-            #ifdef MAX32620
+
+            #if defined(MAX32620) || defined(MAX32630)
             case 2: sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_SPIM2(IOMAN_MAP_B, 1, 0, 0, 0, 0, 0, 0, 1); break;
             #endif
             

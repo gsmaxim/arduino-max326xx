@@ -7,15 +7,6 @@
 #######################################
 
 #######################################
-# Instances (KEYWORD2)
-#######################################
-
-Wire	KEYWORD1
-Wire0	KEYWORD1
-Wire1	KEYWORD1
-Wire2	KEYWORD1
-
-#######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
@@ -26,6 +17,15 @@ endTransmission	KEYWORD2
 requestFrom	KEYWORD2
 onReceive	KEYWORD2
 onRequest	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+Wire	KEYWORD2
+Wire0	KEYWORD2
+Wire1	KEYWORD2
+Wire2	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
