@@ -60,7 +60,7 @@ void tone(uint8_t pin, uint32_t freq, uint32_t duration)
     PT_Start(pt);
 
     // Stop after certain duration, if specified
-    if (duration){
+    if (duration) {
         delay(duration);
         PT_Stop(pt);
     }

@@ -59,7 +59,7 @@ extern "C" {
 /**
  * Enum type for the clock scale used for the PMU timeout clock.
  */
-typedef enum { 
+typedef enum {
     PMU_PS_SEL_DISABLE  = MXC_V_PMU_CFG_PS_SEL_DISABLE,  /**< Timeout disabled */
     PMU_PS_SEL_DIV_2_8  = MXC_V_PMU_CFG_PS_SEL_DIV_2_8,  /**< Timeout clk = PMU clock / 2^8 = 256 */
     PMU_PS_SEL_DIV_2_16 = MXC_V_PMU_CFG_PS_SEL_DIV_2_16, /**< Timeout clk = PMU clock / 2^16 = 65536 */
@@ -162,7 +162,7 @@ typedef struct pmu_poll_des_t {
     uint32_t interrupt    : 1;
     uint32_t stop         : 1;
     uint32_t              : 2;
-    uint32_t and          : 1;
+    uint32_t and_         : 1;
     uint32_t              : 24;
 
     uint32_t poll_addr;
@@ -177,7 +177,7 @@ typedef struct pmu_branch_des_t {
     uint32_t interrupt    : 1;
     uint32_t stop         : 1;
     uint32_t              : 2;
-    uint32_t and          : 1;
+    uint32_t and_         : 1;
     uint32_t type         : 3;
     uint32_t              : 21;
 
@@ -229,7 +229,7 @@ typedef void (*pmu_callback)(int pmu_status);
  *
  * @param[in]  channel          The channel number to start the PMU program.
  * @param[in]  program_address  A pointer to the first opcode of the PMU program.
- * @param[in]  callback         A pointer to the callback function or NULL. See pmu_callback() for details. 
+ * @param[in]  callback         A pointer to the callback function or NULL. See pmu_callback() for details.
  *
  * @return     #E_NO_ERROR if everything is successful, error if unsuccessful.
  */

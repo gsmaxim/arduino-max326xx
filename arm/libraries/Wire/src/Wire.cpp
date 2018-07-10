@@ -142,13 +142,13 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop
         return 0;
     }
 
-    if(!(quantity > 0)) {
+    if (!(quantity > 0)) {
         return E_NO_ERROR;
     }
 
     // Lock this I2CM
     i2cm_num = MXC_I2CM_GET_IDX(i2cm);
-    while(mxc_get_lock((uint32_t*)&i2cm_states[i2cm_num].req,1) != E_NO_ERROR) {}
+    while (mxc_get_lock((uint32_t*)&i2cm_states[i2cm_num].req,1) != E_NO_ERROR);
 
     // Get the FIFO pointer for this I2CM
     fifo = MXC_I2CM_GET_FIFO(i2cm_num);
@@ -218,7 +218,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop
     }
 
     // Wait for the transaction to complete
-    if(sendStop && !error){
+    if (sendStop && !error) {
         error = I2CM_TxInProgress(i2cm);
     }
 

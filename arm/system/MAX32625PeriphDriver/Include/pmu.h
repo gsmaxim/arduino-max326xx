@@ -150,7 +150,7 @@ typedef struct pmu_poll_des_t {
     uint32_t interrupt    : 1;
     uint32_t stop         : 1;
     uint32_t              : 2;
-    uint32_t and_          : 1;
+    uint32_t and_         : 1;
     uint32_t              : 24;
 
     uint32_t poll_addr;
@@ -165,7 +165,7 @@ typedef struct pmu_branch_des_t {
     uint32_t interrupt    : 1;
     uint32_t stop         : 1;
     uint32_t              : 2;
-    uint32_t and_          : 1;
+    uint32_t and_         : 1;
     uint32_t type         : 3;
     uint32_t              : 21;
 

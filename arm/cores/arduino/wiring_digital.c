@@ -14,12 +14,13 @@
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-  
+
   Modified 2017 by Maxim Integrated for MAX326xx
 */
 
 #include "Arduino.h"
 #include "tmr_regs.h"
+#include "gpio.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -27,15 +28,20 @@
 
 void pinMode(uint32_t pin, uint32_t mode)
 {
-    if (IS_DIGITAL(pin)){
+    if (IS_DIGITAL(pin)) {
         uint32_t m =   (mode == INPUT)        ? GPIO_PAD_INPUT :         \
                        (mode == INPUT_PULLUP) ? GPIO_PAD_INPUT_PULLUP :  \
                                                 GPIO_PAD_NORMAL;
         // Set the mode in pinLut
         SET_PIN_MODE(pin, m);
-        
-        // pin = HIGH, pin should have an initial state
-        GPIO_OutSet(GET_PIN_CFG(pin));
+
+        // Set initial state
+        if (GPIO_InGet(GET_PIN_CFG(pin)) || IS_LED(pin)) {
+            GPIO_OutSet(GET_PIN_CFG(pin));
+        } else {
+            GPIO_OutClr(GET_PIN_CFG(pin));
+        }
+
         GPIO_Config(GET_PIN_CFG(pin));
     }
 }
@@ -43,7 +49,7 @@ void pinMode(uint32_t pin, uint32_t mode)
 void digitalWrite(uint32_t pin, uint32_t val)
 {
     if (IS_DIGITAL(pin)) {
-        if (val){
+        if (val) {
             GPIO_OutSet(GET_PIN_CFG(pin));
         } else {
             GPIO_OutClr(GET_PIN_CFG(pin));
@@ -57,7 +63,7 @@ int digitalRead(uint32_t pin)
     gpio_cfg_t *cfg;
     mxc_tmr_regs_t *tmr;
 
-    if(!IS_DIGITAL(pin)){
+    if (!IS_DIGITAL(pin)) {
         return LOW;
     }
 
@@ -67,9 +73,9 @@ int digitalRead(uint32_t pin)
     tmp = ((cfg->port * MXC_GPIO_MAX_PINS_PER_PORT) + PIN_MASK_TO_PIN(cfg->mask)) %
             MXC_CFG_TMR_INSTANCES;
     tmr = MXC_TMR_GET_TMR(tmp);
-    
+
     // Disable timer and turn off PWM mode
-    if ((tmr->ctrl & MXC_F_TMR_CTRL_MODE) == MXC_S_TMR_CTRL_MODE_PWM){
+    if ((tmr->ctrl & MXC_F_TMR_CTRL_MODE) == MXC_S_TMR_CTRL_MODE_PWM) {
         tmr->ctrl &= ~(MXC_F_TMR_CTRL_ENABLE0 | MXC_S_TMR_CTRL_MODE_PWM);
         // Change the pin function to GPIO and input mode
         cfg->func = GPIO_FUNC_GPIO;

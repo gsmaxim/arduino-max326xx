@@ -39,19 +39,6 @@
 // When interrupt number is not GPIO Interrupt
 #define NOT_GPIO_IRQn_MASK (1<<5)
 
-#ifndef interruptsStatus
-#define interruptsStatus() __interruptsStatus()
-static inline bool __interruptsStatus(void) __attribute__((always_inline, unused));
-static inline bool __interruptsStatus(void) {
-	unsigned int priMask, faultMask;
-	asm volatile ("mrs %0, primask" : "=r" (priMask));
-	if (priMask) return 0;
-	asm volatile ("mrs %0, faultmask" : "=r" (faultMask));
-	if (faultMask) return 0;
-	return 1;
-}
-#endif
-
 SPIClass::SPIClass(uint32_t index):
     initialized(false),
     idx(index)
@@ -84,7 +71,7 @@ void SPIClass::begin()
     spim_cfg_t cfg;
 
     if (!initialized) {
-        // Default Peripheral Config 
+        // Default Peripheral Config
         cfg.mode = SPI_MODE0;
         cfg.ssel_pol = 0;
         cfg.baud = currentSPIClk;
@@ -97,7 +84,7 @@ void SPIClass::begin()
             #if defined(MAX32620) || defined(MAX32630)
             case 2: sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_SPIM2(IOMAN_MAP_B, 1, 0, 0, 0, 0, 0, 0, 1); break;
             #endif
-            
+
             #ifdef MAX32625
             case 2: sys_cfg.io_cfg = (ioman_cfg_t)IOMAN_SPIM2(1, 0, 0, 0, 0, 0, 1); break;
             #endif
@@ -132,16 +119,16 @@ void SPIClass::beginTransaction(SPISettings settings)
             if (intPortMask & (1 << PORT_4)) NVIC_DisableIRQ(GPIO_P4_IRQn);
         }
     }
-    
+
     // Set SPI clock frequency
     if (currentSPIClk != settings.clk) {
         modifyClk(settings.clk);
         currentSPIClk = settings.clk;
     }
-    
+
     // Set the SPI mode
     setDataMode(settings.transferMode);
-    
+
     // Set the bit order
     bitOrder = settings.s_bitOrder;
 }
@@ -163,7 +150,7 @@ int SPIClass::modifyClk(uint32_t baud)
         return E_BAD_STATE;
 
     CLKMAN_SetClkScale((clkman_clk_t)(CLKMAN_CLK_SPIM0 + idx), (clkman_scale_t)clk_scale);
-    
+
     // Calculate and update SPI clock frequency
     spim_clk = SYS_SPIM_GetFreq(spim); // Get frequency with updated clock scale
     if (spim_clk == 0)
@@ -171,7 +158,7 @@ int SPIClass::modifyClk(uint32_t baud)
 
     // Calculate the clocks for HI_CLK and LO_CLK
     clocks = (spim_clk / (2*baud)); // 2, considering Hi and Low clock
-    
+
     if (clocks == 0 || clocks > 16) // 16 max clock for Hi or Low
         return E_BAD_PARAM;
 
@@ -201,7 +188,7 @@ void SPIClass::endTransaction(void)
             if (intPortMask & (1 << PORT_3)) NVIC_EnableIRQ(GPIO_P3_IRQn);
             if (intPortMask & (1 << PORT_4)) NVIC_EnableIRQ(GPIO_P4_IRQn);
         }
-    }    
+    }
 }
 
 void SPIClass::usingInterrupt(uint8_t intNum)
@@ -248,20 +235,20 @@ uint8_t SPIClass::transfer(uint8_t value)
     req.width = SPIM_WIDTH_1;
     req.len = sizeof(value);
     req.callback = NULL;
-    
-    if(bitOrder == LSBFIRST){
+
+    if (bitOrder == LSBFIRST) {
         value = __RBIT(value) >> 24;
     }
 
     SPIM_Trans(spim, &req);
-    
+
     return value;   // Received data
 }
 
 uint16_t SPIClass::transfer16(uint16_t value)
 {
     uint8_t temp;
-    
+
     // Least Significant Byte is sent 1st to ensure correct endianness
     // Send LSB
     temp = transfer(value);
@@ -270,7 +257,7 @@ uint16_t SPIClass::transfer16(uint16_t value)
     // Send MSB
     temp = transfer(value >> 8);
     value = (temp << 8) | (value & 0x00FF);
-    
+
     return value;
 }
 
@@ -280,7 +267,7 @@ void SPIClass::transfer(void *buf, size_t count)
     uint8_t n = 1;
     uint8_t *ptr = (uint8_t *)buf;
     uint32_t num;
-    
+
     req.tx_data = ptr;
     req.rx_data = ptr;
     req.ssel = 0;
@@ -288,7 +275,7 @@ void SPIClass::transfer(void *buf, size_t count)
     req.width = SPIM_WIDTH_1;
     req.len = count;
     req.callback = NULL;
-    
+
     // Changing the bit order of individual byte
     if (bitOrder == LSBFIRST) {
         while (n <= count) {
@@ -300,7 +287,7 @@ void SPIClass::transfer(void *buf, size_t count)
 // TODO disable interrupt
     SPIM_Trans(spim, &req);
 // TODO enable interrupts
-    
+
 }
 
 SPIClass SPI0 = SPIClass(0);

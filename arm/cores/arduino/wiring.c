@@ -14,11 +14,12 @@
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-  
+
   Modified 2017 by Maxim Integrated for MAX326xx
 */
 
 #include "Arduino.h"
+#include "gpio_regs.h"
 
 #define USE_SYSTEM_CLK 1
 #define TICK_RATE_HZ 1000
@@ -35,6 +36,12 @@ static volatile uint32_t tickCount = 0;
 void init(void)
 {
     SYS_SysTick_Config(SYSTICK_PERIOD_SYS_CLK, USE_SYSTEM_CLK);
+
+    // Set all pins to Normal Input Monitoring Mode
+    uint8_t port;
+    for (port = 0; port < MXC_GPIO_NUM_PORTS; port++) {
+        MXC_GPIO->in_mode[port] = 0UL;
+    }
 }
 
 uint32_t millis( void )
@@ -74,10 +81,10 @@ void delay( uint32_t ms )
 {
     if (ms == 0)
         return;
-    
+
     uint32_t start = tickCount;
 
-    while ((tickCount - start) < ms){
+    while ((tickCount - start) < ms) {
         __WFI();
     }
 }

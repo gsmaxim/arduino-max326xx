@@ -157,12 +157,11 @@ void initVariant()
     MXC_PWRMAN->peripheral_reset &= ~MXC_F_PWRMAN_PERIPHERAL_RESET_UART3;
 #endif // MAX32620FTHR_BOOTLOADER
 
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[0]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[1]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[2]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[3]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[4]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[5]);
+    // Set GPIO pins to 3.3v
+    uint8_t port;
+    for ( port = 0; port < (sizeof(VDDIOH_pins)/sizeof(VDDIOH_pins[0])); port++ ) {
+        SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[port]);
+    }
 }
 
 // Change to VDDIOH voltage (3.3v)
@@ -172,7 +171,7 @@ int useVDDIOH(int pin)
 {
     // Pins which can be used at 3.3v(VDDIOH)
     if ((pin >= 0 && pin < 8) ||    // port 0
-        (pin > 07 && pin < 16) ||   // port 1
+        (pin > 7 && pin < 16) ||    // port 1
         (pin > 19 && pin < 23) ||   // port 2
         (pin > 23 && pin < 30) ||   // port 3
         (pin > 31 && pin < 34) ||   // port 4
