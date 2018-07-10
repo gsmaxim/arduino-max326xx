@@ -1,7 +1,7 @@
 /*
   MXC_HardwareSerial.cpp - Hardware serial library for Wiring
   copied from HardwareSerial.cpp
-  
+
   HardwareSerial.cpp - Hardware serial library for Wiring
   Copyright (c) 2006 Nicholas Zambetti.  All right reserved.
 
@@ -122,15 +122,15 @@ int MXC_HardwareSerial::read(void)
 int MXC_HardwareSerial::availableForWrite(void)
 {
   // Leading tail
-  if(_tx_buffer_tail > _tx_buffer_head){
+  if (_tx_buffer_tail > _tx_buffer_head) {
       return _tx_buffer_tail - _tx_buffer_head - 1;
   }
   // Leading Head
-  if(_tx_buffer_tail < _tx_buffer_head){
+  if (_tx_buffer_tail < _tx_buffer_head) {
       return SERIAL_TX_BUFFER_SIZE - _tx_buffer_head + 1;
   }
-  
-  if(_tx_buffer_tail == _tx_buffer_head){
+
+  if (_tx_buffer_tail == _tx_buffer_head) {
     return SERIAL_TX_BUFFER_SIZE - 1;
   }
 }

@@ -62,7 +62,7 @@ void SystemCoreClockUpdate(void)
 {
 #ifdef EMULATOR
     SystemCoreClock = RO_FREQ;
-#else /* real hardware */ 
+#else /* real hardware */
     if(MXC_PWRSEQ->reg0 & MXC_F_PWRSEQ_REG0_PWR_RCEN_RUN) {
         /* 4 MHz source */
         if(MXC_PWRSEQ->reg3 & MXC_F_PWRSEQ_REG3_PWR_RC_DIV) {
@@ -159,7 +159,7 @@ static void ICC_Enable(void)
  * implemented by the application for early initializations. If a value other
  * than '0' is returned, the C runtime initialization will be skipped.
  *
- * You may over-ride this function in your program by defining a custom 
+ * You may over-ride this function in your program by defining a custom
  *  PreInit(), but care should be taken to reproduce the initilization steps
  *  or a non-functional system may result.
  */
@@ -167,7 +167,7 @@ __weak int PreInit(void)
 {
     /* Increase system clock to 96 MHz */
     MXC_CLKMAN->clk_ctrl = MXC_V_CLKMAN_CLK_CTRL_SYSTEM_SOURCE_SELECT_96MHZ_RO;
-    
+
     /* Performance-measurement hook, may be defined as nothing */
     LP0_POST_HOOK;
 
@@ -186,7 +186,7 @@ __weak int Board_Init(void)
 
 /* This function is called just before control is transferred to main().
  *
- * You may over-ride this function in your program by defining a custom 
+ * You may over-ride this function in your program by defining a custom
  *  SystemInit(), but care should be taken to reproduce the initialization
  *  steps or a non-functional system may result.
  */
@@ -194,7 +194,7 @@ __weak void SystemInit(void)
 {
     /* Configure the interrupt controller to use the application vector table in */
     /* the application space */
-#if defined ( __GNUC__) 
+#if defined ( __GNUC__)
     /* IAR sets the VTOR pointer prior to SystemInit and causes stack corruption to change it here. */
     __disable_irq(); /* Disable interrupts */
     SCB->VTOR = (uint32_t)__isr_vector; /* set the Vector Table to point at our ISR table */
@@ -254,7 +254,7 @@ __weak void SystemInit(void)
                                MXC_F_PWRSEQ_RETN_CTRL0_RC_POLL_FLASH);
     MXC_PWRSEQ->retn_ctrl0 &= ~(MXC_F_PWRSEQ_RETN_CTRL0_RC_USE_FLC_TWK);
 
-    
+
     /* Set retention controller TWake cycle count to 1us to minimize the wake-up time */
     /* NOTE: flash polling (...PWRSEQ_RETN_CTRL0_RC_POLL_FLASH) must be enabled before changing POR default! */
     MXC_PWRSEQ->retn_ctrl1 = (MXC_PWRSEQ->retn_ctrl1 & ~MXC_F_PWRSEQ_RETN_CTRL1_RC_TWK) |
@@ -265,7 +265,7 @@ __weak void SystemInit(void)
         (1 << MXC_F_PWRSEQ_REG3_PWR_FAILSEL_POS) |
         (MXC_PWRSEQ->reg3 & ~(MXC_F_PWRSEQ_REG3_PWR_ROSEL |
 	       MXC_F_PWRSEQ_REG3_PWR_FLTRROSEL));
-    
+
     /* Enable RTOS Mode: Enable 32kHz clock synchronizer to SysTick external clock input */
     MXC_CLKMAN->clk_ctrl |= MXC_F_CLKMAN_CLK_CTRL_RTOS_MODE;
 

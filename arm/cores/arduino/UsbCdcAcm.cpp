@@ -117,7 +117,7 @@ int UsbCdcAcm::peek(void)
 {
     if (acm_present() && acm_canread()) {
         uint8_t peekChar;
-        
+
         if (peeked == -1) {
             if (acm_read(&peekChar, 1) != 1) {
                 return -1;
@@ -186,7 +186,7 @@ int UsbCdcAcm::setconfig_callback(usb_setup_pkt *sud, void *cbdata)
 /* ************************************************************************** */
 int UsbCdcAcm::setfeature_callback(usb_setup_pkt *sud, void *cbdata)
 {
-    if(sud->wValue == FEAT_REMOTE_WAKE) {
+    if (sud->wValue == FEAT_REMOTE_WAKE) {
         remote_wake_en = 1;
     } else {
         // Unknown callback
@@ -199,13 +199,13 @@ int UsbCdcAcm::setfeature_callback(usb_setup_pkt *sud, void *cbdata)
 /* ************************************************************************** */
 int UsbCdcAcm::clrfeature_callback(usb_setup_pkt *sud, void *cbdata)
 {
-    if(sud->wValue == FEAT_REMOTE_WAKE) {
+    if (sud->wValue == FEAT_REMOTE_WAKE) {
         remote_wake_en = 0;
     } else {
         // Unknown callback
         return -1;
     }
-    
+
     return 0;
 }
 

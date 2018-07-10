@@ -71,90 +71,14 @@
 #define DEFAULT_SPIM_PORT 1
 #define DEFAULT_SERIAL_PORT 0
 
-#define PIN_MASK_TO_PIN(msk) (31 - __CLZ(msk))
-
-#define IS_VALID(p)       ( (p) < NUM_OF_PINS )
-#define IS_NC(p)          ( pinLut[(p)].port == PIN_NC )
-#define IS_ANALOG(p)      ( IS_VALID(p) && (pinLut[(p)].port == PIN_ANALOG) )
-#define IS_DIGITAL(p)     ( IS_VALID(p) && !IS_NC(p) && !IS_ANALOG(p) )
-#define GET_PIN_IRQ(p)    ( (uint32_t)MXC_GPIO_GET_IRQ(pinLut[p].port) )
-#define GET_PIN_MASK(p)   ( pinLut[p].mask )
-#define GET_PIN_PORT(p)   ( pinLut[p].port )
-#define GET_PIN_CFG(p)    ( (gpio_cfg_t *)&pinLut[p] )
-#define SET_PIN_MODE(p,m) ( pinLut[p].pad = m )
-
-// Do not const pinLut, pin func and pad can be changed
-extern gpio_cfg_t pinLut[NUM_OF_PINS];
-extern const gpio_cfg_t VDDIOH_pins[5];
-
-// Switch I/O voltage
-int useVDDIOH(int pin);
-int useVDDIO(int pin);
-
-// Enumeration to allow portability between mbed and arduino
-enum mbedPins {
-/* PORT 0 */
-    P0_0 = 0,
-    P0_1,
-    P0_2,
-    P0_3,
-    P0_4,
-    P0_5,
-    P0_6,
-    P0_7,
-/* PORT 1 */
-    P1_4 = 8,
-    P1_5,
-    P1_3,
-    P1_1,
-    P1_2,
-    P1_0,
-    P1_6,
-    P1_7,
-/* PORT 2 */
-    P2_0 = 16,
-    P2_1,
-    P2_2,
-    P2_3,
-    P2_4,
-    P2_5,
-    P2_6,
-    P2_7,
-/* PORT 3 */
-    P3_0 = 24,
-    P3_1,
-    P3_2,
-    P3_3,
-    P3_4,
-    P3_5,
-    P3_6,
-    P3_7,
-/* PORT 4 */
-    P4_0 = 32,
-    P4_1,
-    P4_2,
-    P4_3,
-    P4_4,
-    P4_5,
-    P4_6,
-    P4_7,
-/* PORT 5 */
-    P5_0 = 40,
-    P5_1,
-    P5_2,
-    P5_3,
-    P5_4,
-    P5_5,
-    P5_6,
-    P5_7,
-/* PORT 6 */
-    P6_0 = 48,
-};
-
 // LEDs
 // ----
-#define PIN_LED     (24u)
-#define LED_BUILTIN PIN_LED
+#define RED_LED     (24u)
+#define GREEN_LED   (25u)
+#define BLUE_LED    (26u)
+#define YELLOW_LED  (27u)
+#define PIN_LED     RED_LED
+#define LED_BUILTIN RED_LED
 
 // Analog pins
 // -----------
@@ -232,5 +156,39 @@ static const uint8_t SCL0 = PIN_WIRE0_SCL;
 #define PIN_WIRE1_SCL   29
 static const uint8_t SDA1 = PIN_WIRE1_SDA;
 static const uint8_t SCL1 = PIN_WIRE1_SCL;
+
+// Macros
+// ------
+#define PIN_MASK_TO_PIN(msk) (31 - __CLZ(msk))
+
+#define IS_VALID(p)       ( (p) < NUM_OF_PINS )
+#define IS_NC(p)          ( pinLut[(p)].port == PIN_NC )
+#define IS_ANALOG(p)      ( IS_VALID(p) && (pinLut[(p)].port == PIN_ANALOG) )
+#define IS_DIGITAL(p)     ( IS_VALID(p) && !IS_NC(p) && !IS_ANALOG(p) )
+#define GET_PIN_IRQ(p)    ( (uint32_t)MXC_GPIO_GET_IRQ(pinLut[p].port) )
+#define GET_PIN_MASK(p)   ( pinLut[p].mask )
+#define GET_PIN_PORT(p)   ( pinLut[p].port )
+#define GET_PIN_CFG(p)    ( &pinLut[p] )
+#define SET_PIN_MODE(p,m) ( pinLut[p].pad = m )
+#define IS_LED(p)         ( (p == RED_LED) || (p == GREEN_LED) || (p == BLUE_LED) || (p == YELLOW_LED))
+
+// Do not const pinLut, pin func and pad can be changed
+extern gpio_cfg_t pinLut[];
+extern const gpio_cfg_t VDDIOH_pins[];
+
+// Switch I/O voltage
+int useVDDIOH(int pin);
+int useVDDIO(int pin);
+
+// Enumeration to allow portability between mbed and arduino
+enum mbedPins {
+    P0_0 = 0, P0_1, P0_2, P0_3, P0_4, P0_5, P0_6, P0_7,
+    P1_4 = 8, P1_5, P1_3, P1_1, P1_2, P1_0, P1_6, P1_7,
+    P2_0 = 16, P2_1, P2_2, P2_3, P2_4, P2_5, P2_6, P2_7,
+    P3_0 = 24, P3_1, P3_2, P3_3, P3_4, P3_5, P3_6, P3_7,
+    P4_0 = 32, P4_1, P4_2, P4_3, P4_4, P4_5, P4_6, P4_7,
+    P5_0 = 40, P5_1, P5_2, P5_3, P5_4, P5_5, P5_6, P5_7,
+    P6_0 = 48,
+};
 
 #endif // _VARIANT_MAX32625MBED_H_

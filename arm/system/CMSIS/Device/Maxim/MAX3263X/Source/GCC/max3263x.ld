@@ -120,6 +120,7 @@ SECTIONS {
     .heap (COPY):
     {
         . = ALIGN(4);
+        end = .;
         *(.heap*)
         __HeapLimit = ABSOLUTE(__StackLimit);
     } > SRAM

@@ -1,20 +1,20 @@
 /*
   Copyright (c) 2011 Arduino.  All right reserved.
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
   version 2.1 of the License, or (at your option) any later version.
-  
+
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
-  
+
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-  
+
   Modified 2017 by Maxim Integrated for MAX326xx
 */
 
@@ -40,23 +40,23 @@ static uint32_t readSHR = 0;
 static int adcInit(int ref)
 {
     int err;
-    
+
     if ((err = SYS_ADC_Init()) != E_NO_ERROR) {
         return err;
     }
-    
+
     // Wipe previous configuration
     MXC_ADC->intr = 0;
-    
+
     // Clear all ADC interrupt flags
     MXC_ADC->intr = MXC_ADC->intr;
-    
+
     // Enable done interrupt
     MXC_ADC->intr = MXC_F_ADC_INTR_ADC_DONE_IE;
-    
+
     // Enable ADC interface clock
     MXC_ADC->ctrl = MXC_F_ADC_CTRL_ADC_CLK_EN;
-  
+
 #ifdef MAX32620
     if (ref == EXTERNAL) {
         MXC_ADC->ctrl |= MXC_F_ADC_CTRL_ADC_XREF;
@@ -82,14 +82,14 @@ void analogReference(int mode)
 #ifdef MAX32620
     adcInit(mode);
     adcInitialized = 1;
-#endif    
+#endif
 }
 
 void analogReadResolution(int newRes)
 {
     if ((newRes != readResolution) && (newRes > 0) && (newRes <= READ_MAX_RESOLUTION)) {
         // Calculate the right/left shift values for mapping
-        if (newRes > READ_DEFAULT_RESOLUTION){
+        if (newRes > READ_DEFAULT_RESOLUTION) {
             readSHL = newRes - READ_DEFAULT_RESOLUTION;
             readSHR = READ_DEFAULT_RESOLUTION - readSHL;
         } else {
@@ -110,7 +110,7 @@ uint32_t analogRead(uint32_t pin)
             adcInit(DEFAULT);
             adcInitialized = 1;
         }
-        
+
         // 1- adc_scale, 0- bypass RTC oscillator
         ADC_StartConvert(GET_PIN_MASK(pin), 1, 0);
 
@@ -118,7 +118,7 @@ uint32_t analogRead(uint32_t pin)
             // Full scale result
             result = (2 << (writeResolution - 1)) - 1;
         }
-        
+
         // Mapping result to the desired resolution
         if (readResolution != READ_DEFAULT_RESOLUTION) {
             if (readResolution > READ_DEFAULT_RESOLUTION) {
@@ -155,7 +155,7 @@ void analogWrite(uint32_t pin, uint32_t value)
             // Resolution is 1 based, left shift is 0 based
             value = (2 << (writeResolution - 1)) - 1;
         }
-        
+
         // Mapping value to the desired resolution
         if (writeResolution != WRITE_DEFAULT_RESOLUTION) {
             if (writeResolution < WRITE_DEFAULT_RESOLUTION) {
@@ -164,7 +164,7 @@ void analogWrite(uint32_t pin, uint32_t value)
                 value >>= writeSHR;
             }
         }
-        
+
         uint32_t tmp;
         gpio_cfg_t *cfg;
         mxc_tmr_regs_t *tmr;

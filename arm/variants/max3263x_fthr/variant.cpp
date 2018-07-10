@@ -139,7 +139,7 @@ const gpio_cfg_t VDDIOH_pins[] = {
             | PIN_4 | PIN_5 | PIN_6, (gpio_func_t)0, (gpio_pad_t)0 },
 };
 
-// Pins of feather board will default to 3.3v(VDDIOH)
+// Initilization code specific to MAX32630FTHR
 void initVariant(void)
 {
     MAX14690 pmic;
@@ -156,9 +156,36 @@ void initVariant(void)
     // Call init to apply all settings to the PMIC
     pmic.init();
 
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[0]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[2]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[3]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[4]);
-    SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[5]);
+    // Set GPIO pins to 3.3v
+    uint8_t port;
+    for ( port = 0; port < (sizeof(VDDIOH_pins)/sizeof(VDDIOH_pins[0])); port++ ) {
+        SYS_IOMAN_UseVDDIOH(&VDDIOH_pins[port]);
+    }
+}
+
+// Change to VDDIOH voltage (3.3v)
+// pin to change voltage
+// returns -1 if VDDIOH not allowed, 0 otherwise
+int useVDDIOH(int pin)
+{
+    // Pins which can be used at 3.3v(VDDIOH)
+    if ((pin > 3 && pin < 8) ||     // port 0
+        (pin > 19 && pin < 23) ||   // port 2
+        (pin > 23 && pin < 30) ||   // port 3
+        (pin > 31 && pin < 40) ||   // port 4
+        (pin > 39 && pin < 47)) {   // port 5
+            SYS_IOMAN_UseVDDIOH(GET_PIN_CFG(pin));
+            return 0;
+    } else {
+        return -1;  // VDDIOH not allowed on this pin
+    }
+}
+
+// Change to VDDIO voltage (1.8v)
+// pin to change voltage
+int useVDDIO(int pin)
+{
+    // All pins allowed to run at 1.8v(VDDIO)
+    SYS_IOMAN_UseVDDIO(GET_PIN_CFG(pin));
+    return 0;
 }
