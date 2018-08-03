@@ -4,10 +4,12 @@
 
 ### Supported Boards
 - [MAX32620FTHR](https://www.maximintegrated.com/en/products/microcontrollers/MAX32620FTHR.html)
+	- [Native USB port](https://github.com/maximmbed/arduino-max326xx/wiki/MAX32620FTHR#native-usb-port)
+	- [Programming port](https://github.com/maximmbed/arduino-max326xx/wiki/MAX32620FTHR#programming-port)
 - [MAX32625MBED](https://www.maximintegrated.com/en/products/microcontrollers/MAX32625MBED.html)
 - [MAX32630FTHR](https://www.maximintegrated.com/en/products/microcontrollers/MAX32630FTHR.html)
 
-### Setup the Arduino Environment
+### Setup Maxim board support in the Arduino Environment
 ###### NOTE: If you already have latest version of Arduino installed on your computer, skip step 1 and 2.
 1. [Download](https://www.arduino.cc/en/Main/Software) latest version and install the Arduino IDE for [Windows](https://www.arduino.cc/en/Guide/Windows), [Linux](https://www.arduino.cc/en/Guide/Linux) or [Mac OS](https://www.arduino.cc/en/Guide/MacOSX). 
 2. Open the Arduino IDE.
