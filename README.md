@@ -2,13 +2,13 @@
 
 [Arduino](https://www.arduino.cc/) support package to program [Maxim](https://www.maximintegrated.com/) boards.
 
-See the [wiki page](wiki) for additional details about the specific boards and
-some minor differences in the [implementation of the Arduino APIs](wiki/API).
+See the [wiki page](../../wiki) for additional details about the specific boards and
+some minor differences in the [implementation of the Arduino APIs](../../wiki/API).
 
 ### Supported Boards
 - [MAX32620FTHR](https://www.maximintegrated.com/en/products/microcontrollers/MAX32620FTHR.html)
-	- To program using USB bootloader use:  [MAX32620FTHR(Native USB port)](wiki/MAX32620FTHR#native-usb-bootloader)
-	- To program using MAXDAP adapter use:  [MAX32620FTHR(Programming port)](wiki/MAX32620FTHR#maxdap-programming-adapter)
+	- To program using USB bootloader use:  [MAX32620FTHR(Native USB port)](../../wiki/MAX32620FTHR#native-usb-bootloader)
+	- To program using MAXDAP adapter use:  [MAX32620FTHR(Programming port)](../../wiki/MAX32620FTHR#maxdap-programming-adapter)
 - [MAX32625MBED](https://www.maximintegrated.com/en/products/microcontrollers/MAX32625MBED.html)
 - [MAX32630FTHR](https://www.maximintegrated.com/en/products/microcontrollers/MAX32630FTHR.html)
 
@@ -40,4 +40,4 @@ some minor differences in the [implementation of the Arduino APIs](wiki/API).
 * The drag-n-drop programming interface looks like a USB drive so that no drivers or software are required.  You need to have permission to write to a USB storage device in order to use the drag-n-drop programming function.
 
 ___
-For additional information, please check the [wiki](wiki) page.
+For additional information, please check the [wiki](../../wiki) page.
