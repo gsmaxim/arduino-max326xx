@@ -1,6 +1,6 @@
 ######################################################################################
 
-max32620_fthr.name=MAX32620FTHR
+max32620_fthr.name=MAX32620FTHR(Programming Port)
 
 max32620_fthr.upload.tool=daplink
 
@@ -26,7 +26,7 @@ max32620_fthr.compiler.MAX_USB.build.path=
 
 ######################################################################################
 
-max32620_fthr_bl.name=MAX32620FTHR(BootLoader)
+max32620_fthr_bl.name=MAX32620FTHR(Native USB Port)
 
 max32620_fthr_bl.upload.tool=daplink
 
@@ -49,6 +49,8 @@ max32620_fthr_bl.compiler.PeriphDriver.include.path="-I{build.system.path}/MAX32
 max32620_fthr_bl.compiler.PeriphDriver.build.path="-I{build.system.path}/MAX32620PeriphDriver/Build"
 max32620_fthr_bl.compiler.MAX_USB.include.path="-I{build.system.path}/MAX_USB/include/core" "-I{build.system.path}/MAX_USB/include/core/arm" "-I{build.system.path}/MAX_USB/include/devclass" "-I{build.system.path}/MAX_USB/include/enumerate"
 max32620_fthr_bl.compiler.MAX_USB.build.path="-I{build.system.path}/MAX_USB/Build"
+
+max32620_fthr.bootloader.tool=daplink
 
 ######################################################################################
 
